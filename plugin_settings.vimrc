@@ -43,6 +43,7 @@ autocmd BufWritePost *.php,*.cpp,*.cc,*.h,*.c call UpdateTags()
 
 "======================= ag.vim ==========================
 let g:ag_working_path_mode="r"
+
 "======================= fzf ==========================
 " @ref https://aonemd.github.io/blog/finding-things-in-vim
 nmap <Leader>a :Rg<CR>
@@ -66,6 +67,7 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 " show buffer number
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
 "========================== PHP ============================
 function! PhpSyntaxOverride()
    "" Put snippet overrides in this function.
@@ -130,9 +132,14 @@ nmap <Leader>m :NERDTreeFind <CR>
 "========================== NerdCommentor ==============================
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
+filetype plugin on
+
+"========================== tpope / vim-commentary ==============================
+autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
+autocmd FileType typescript.tsx setlocal commentstring={/*\ %s\ */}
 
 "========================== coc.nvim ==============================
-
+"
 " extensions
 let g:coc_global_extensions = [
  \ 'coc-snippets',
@@ -148,15 +155,14 @@ set updatetime=300
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-     \ pumvisible() ? "\<C-n>" :
-     \ <SID>check_back_space() ? "\<TAB>" :
-     \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"
+"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 function! s:check_back_space() abort
- let col = col('.') - 1
- return !col || getline('.')[col - 1]  =~# '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
@@ -178,12 +184,11 @@ let g:coc_snippet_next = '<Tab>'
 let g:go_fmt_command = "goimports"
 let g:go_def_mapping_enabled = 0
 
-# https://github.com/fatih/vim-go/issues/848
+" https://github.com/fatih/vim-go/issues/848
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 "let g:syntastic_go_checkers = ['go']
 
-
-"========================== ultsnips ==============================
+"========================== ultisnips ==============================
 " make ultsnips to work with CoC
 let g:UltiSnipsExpandTrigger='<Nop>'
 let g:UltiSnipsJumpForwardTrigger = '<TAB>'
@@ -194,3 +199,4 @@ let g:coc_snippet_prev = '<S-TAB>'
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 let g:python3_host_prog = "/usr/bin/python3"
+

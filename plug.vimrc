@@ -51,4 +51,12 @@ Plug 'natebosch/vim-lsc-dart'
 " plist extension (for electron MacOS)
 Plug 'darfink/vim-plist'
 
+" nvim tree sitter is a typescript parser
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'tpope/vim-commentary'
+
+" nvim-ts-context-commentstring comments .tsx code.
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+
 call plug#end()
